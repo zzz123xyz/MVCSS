@@ -34,7 +34,7 @@ function [clusters, obj_value, F_record] = multi_view_fusion(X, c, gamma1, gamma
  % initiate 
  for i = 1:c
      b_i = repmat(b(i),[n,1]);
-     W(:,i) = inv(X_a*X_a') * X_a*(F0(:,i) - b_i); 
+     W(:,i) = pinv(X_a*X_a') * X_a*(F0(:,i) - b_i); 
      %W(:,i) = (X_a*X_a') \ X_a*(F0(:,i) - b_i); 
  end    
      
@@ -83,7 +83,7 @@ function [clusters, obj_value, F_record] = multi_view_fusion(X, c, gamma1, gamma
          D_i{i} = blkdiag(Cblkdiag{:}); % block diag matrix Di
          
          b_i = repmat(b(i),[n,1]);
-         W(:,i) = inv(X_a*X_a'+gamma1*D_i{i}+gamma2*D_t) * X_a*(F(:,i) - b_i);
+         W(:,i) = pinv(X_a*X_a'+gamma1*D_i{i}+gamma2*D_t) * X_a*(F(:,i) - b_i);
      end
      
      F_record{t} = F;
